@@ -4,6 +4,9 @@ const hbs = require('express-handlebars');
 
 const app = express();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 app.engine('.hbs', hbs());
 app.set('view engine', '.hbs');
 
@@ -23,6 +26,18 @@ app.get('/about', (req, res) => {
 
 app.get('/contact', (req, res) => {
   res.render('contact');
+});
+
+app.post('/contact/send-message', (req, res) => {
+
+  const {author, sender, title, message} = req.body
+  
+  if(author && sender && title && message) {
+    res.render('contact', {isSent: true});
+  }
+  else {
+    res.render('contact', {isError: true});
+  }
 });
 
 app.get('/info', (req, res) => {
