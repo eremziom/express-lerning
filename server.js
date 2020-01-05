@@ -30,10 +30,10 @@ app.get('/contact', (req, res) => {
 
 app.post('/contact/send-message', (req, res) => {
 
-  const {author, sender, title, message} = req.body
+  const {author, sender, title, message, loader} = req.body
   
-  if(author && sender && title && message) {
-    res.render('contact', {isSent: true});
+  if(author && sender && title && message && loader) {
+    res.render('contact', {isSent: true, imageName: loader});
   }
   else {
     res.render('contact', {isError: true});
